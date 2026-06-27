@@ -1,0 +1,74 @@
+{
+  "$meta": {
+    "name": "Inference Exposure Auditor — design tokens",
+    "version": "2",
+    "system": "Aditya Design System (Radix Colors 12-step, light + dark) consumed via Tailwind v4 @theme",
+    "icons": "Lucide",
+    "namingContract": "token path == CSS var; color.accent.solid => --color-accent-solid; severity.high => --sev-high",
+    "source": "values reconciled with the personal design system (_ds bundle) the prototype consumes; Radix scales sand/teal/green/amber/orange/red (+ *Dark variants)",
+    "modes": ["light", "dark"]
+  },
+  "color": {
+    "scales": {
+      "neutral": "sand",
+      "accent": "teal",
+      "severity": { "low": "green", "moderate": "amber", "high": "orange", "extreme": "red" }
+    },
+    "semantic": {
+      "bg":                 { "step": "sand.2",  "use": "app background" },
+      "surface":            { "step": "sand.1",  "use": "cards / raised surface (white in light · sand.1 in dark)" },
+      "border":             { "step": "sand.6",  "use": "default border (0.5px)" },
+      "border-strong":      { "step": "sand.7",  "use": "hover / emphasis border" },
+      "border-focus":       { "step": "teal.8",   "use": "focus ring" },
+      "text":               { "step": "sand.12", "use": "primary text" },
+      "text-subtle":        { "step": "sand.11", "use": "secondary text" },
+      "text-muted":         { "step": "sand.10", "use": "hints / captions" },
+      "accent-bg":          { "step": "teal.3",   "use": "accent surface (chips, selected, active toggle)" },
+      "accent-border":      { "step": "teal.7",   "use": "accent border" },
+      "accent-solid":       { "step": "teal.9",   "use": "primary accent (reliability bars, active states)" },
+      "accent-solid-hover": { "step": "teal.10",  "use": "accent hover" },
+      "accent-text":        { "step": "teal.11",  "use": "accent text / link" }
+    },
+    "severity": {
+      "low":      { "solid": "green.9",  "chip-bg": "green.3",  "chip-text": "green.11",  "icon": "lucide:shield-check" },
+      "moderate": { "solid": "amber.9",  "chip-bg": "amber.3",  "chip-text": "amber.11",  "icon": "lucide:circle-alert" },
+      "high":     { "solid": "orange.9", "chip-bg": "orange.3", "chip-text": "orange.11", "icon": "lucide:triangle-alert" },
+      "extreme":  { "solid": "red.9",    "chip-bg": "red.3",    "chip-text": "red.11",    "icon": "lucide:octagon-alert" },
+      "abstain":  { "chip-bg": "sand.3", "chip-text": "sand.11", "icon": "lucide:circle-minus", "label": "No signal" },
+      "rules": "color is an accent (dot / chip / 2px rail), never a full card fill or full-screen alert; always paired with the icon + a text label (colorblind-safe); the persona lens reorders by severity but never hides"
+    }
+  },
+  "typography": {
+    "fontSans": "Geist — humanist sans",
+    "fontMono": "Geist Mono — engine_version / IDs",
+    "numerals": "tabular-nums for every confidence / accuracy figure",
+    "scale": {
+      "display": { "size": "48px", "weight": 600, "leading": "1.15" },
+      "title":   { "size": "32px", "weight": 600, "leading": "1.15" },
+      "h1":      { "size": "30px", "weight": 600, "leading": "1.2" },
+      "h2":      { "size": "24px", "weight": 500, "leading": "1.3" },
+      "h3":      { "size": "18px", "weight": 500, "leading": "1.3" },
+      "body":    { "size": "15px", "weight": 400, "leading": "1.6" },
+      "sm":      { "size": "13px", "weight": 400, "leading": "1.5" },
+      "xs":      { "size": "12px", "weight": 400, "leading": "1.4" }
+    },
+    "weights": [400, 500, 600],
+    "note": "DS scale tokens are canonical; some prototype screens use ad-hoc px (titles 26–28, body 13–15) — migrate to these tokens during sync"
+  },
+  "space":  { "unit": "4px", "scale": [4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80] },
+  "radius": { "sm": "8px", "md": "12px", "lg": "16px", "xl": "20px", "full": "9999px" },
+  "shadow": {
+    "xs": "0 1px 2px rgba(33,32,28,0.04)",
+    "sm": "0 1px 3px rgba(33,32,28,0.06)",
+    "md": "0 4px 12px rgba(33,32,28,0.08)",
+    "lg": "0 8px 24px rgba(33,32,28,0.10)",
+    "focus": "0 0 0 3px var(--ring)",
+    "note": "warm sand-tinted (rgba 33,32,28); soft / calm; none on flat surfaces"
+  },
+  "motion": {
+    "fast": "120ms", "base": "180ms", "slow": "260ms",
+    "ease": "cubic-bezier(0.2,0,0,1)", "easeOut": "cubic-bezier(0.16,1,0.3,1)",
+    "respects": "prefers-reduced-motion"
+  },
+  "a11y": { "contrast": "WCAG AA — 4.5:1 text, 3:1 large/UI", "focus": "border-focus ring, focus-visible", "neverColorOnly": true }
+}

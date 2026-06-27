@@ -1,0 +1,36 @@
+/* Aditya — Typography tokens
+ * Geist for text, Geist Mono for code/figures. Tabular numerals on by default.
+ * Medium (500) is the workhorse heading weight — Aditya rarely goes to 700. */
+:root {
+  --font-sans: 'Geist', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Type scale (px) — calm, generous, not many steps */
+  --text-display: 48px;   /* hero */
+  --text-title: 32px;     /* page title */
+  --text-h1: 30px;
+  --text-h2: 24px;
+  --text-h3: 18px;
+  --text-body-lg: 16px;
+  --text-body: 15px;      /* default UI body */
+  --text-sm: 13px;        /* secondary / captions */
+  --text-xs: 12px;        /* labels, meta */
+  --text-mono: 13px;
+
+  /* Weights — sentence-case headings, no all-caps */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+
+  /* Line heights */
+  --leading-tight: 1.15;  /* display & titles */
+  --leading-snug: 1.3;    /* headings */
+  --leading-normal: 1.6;  /* body */
+
+  /* Tracking — tighten large type, leave body alone */
+  --tracking-display: -0.02em;
+  --tracking-title: -0.01em;
+  --tracking-normal: 0;
+
+  --font-feature-numeric: 'tnum' 1;   /* tabular figures */
+}

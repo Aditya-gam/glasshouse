@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.env.*
+# Node
+node_modules/
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+# Secrets & local config
+*.key
+secrets/
+litellm.local.yaml
+# Data / models
+*.sqlite
+data/local/

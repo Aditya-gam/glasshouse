@@ -1,0 +1,76 @@
+/* Aditya — Color tokens
+ * Neutral = Radix Sand (warm gray). Accent = Radix Teal (one scale per project).
+ * Status = Jade / Amber / Tomato / Indigo. Light + dark via Radix *-dark scales.
+ * Base scales come from @radix-ui/colors; semantic aliases below are the public API. */
+
+@import url('https://cdn.jsdelivr.net/npm/@radix-ui/colors@3/sand.css');
+@import url('https://cdn.jsdelivr.net/npm/@radix-ui/colors@3/sand-dark.css');
+@import url('https://cdn.jsdelivr.net/npm/@radix-ui/colors@3/sand-a.css');
+@import url('https://cdn.jsdelivr.net/npm/@radix-ui/colors@3/teal.css');
+@import url('https://cdn.jsdelivr.net/npm/@radix-ui/colors@3/teal-dark.css');
+@import url('https://cdn.jsdelivr.net/npm/@radix-ui/colors@3/jade.css');
+@import url('https://cdn.jsdelivr.net/npm/@radix-ui/colors@3/jade-dark.css');
+@import url('https://cdn.jsdelivr.net/npm/@radix-ui/colors@3/amber.css');
+@import url('https://cdn.jsdelivr.net/npm/@radix-ui/colors@3/amber-dark.css');
+@import url('https://cdn.jsdelivr.net/npm/@radix-ui/colors@3/tomato.css');
+@import url('https://cdn.jsdelivr.net/npm/@radix-ui/colors@3/tomato-dark.css');
+@import url('https://cdn.jsdelivr.net/npm/@radix-ui/colors@3/indigo.css');
+@import url('https://cdn.jsdelivr.net/npm/@radix-ui/colors@3/indigo-dark.css');
+
+/* ---- Semantic tokens (shadcn/ui convention) ----
+ * Declared for BOTH :root and .dark so the aliases recompute against whichever
+ * base scale is active. var(--sand-2) resolves on the element where it is used,
+ * so under a .dark wrapper (where Radix redefines the sand and teal scales)
+ * every semantic token flips automatically. Toggle dark mode by adding
+ * class="dark" to a wrapper. Swap --primary / --accent / --ring to re-theme. */
+:root,
+.dark {
+  /* Surfaces */
+  --background: var(--sand-2);          /* app canvas — a hair off pure white */
+  --surface: var(--sand-1);             /* raised surfaces */
+  --card: var(--sand-1);
+  --card-foreground: var(--sand-12);
+  --popover: var(--sand-1);
+  --popover-foreground: var(--sand-12);
+
+  /* Text */
+  --foreground: var(--sand-12);         /* primary text */
+  --muted-foreground: var(--sand-11);   /* secondary text */
+  --subtle-foreground: var(--sand-10);  /* tertiary / placeholder */
+
+  /* Accent (per-project) */
+  --primary: var(--teal-9);
+  --primary-hover: var(--teal-10);
+  --primary-foreground: #ffffff;
+  --accent: var(--teal-3);
+  --accent-foreground: var(--teal-11);
+  --accent-border: var(--teal-7);
+
+  /* Neutral fills */
+  --secondary: var(--sand-3);
+  --secondary-hover: var(--sand-4);
+  --secondary-foreground: var(--sand-12);
+  --muted: var(--sand-3);
+
+  /* Status */
+  --success: var(--jade-9);
+  --success-soft: var(--jade-3);
+  --success-foreground: var(--jade-11);
+  --warning: var(--amber-9);
+  --warning-soft: var(--amber-3);
+  --warning-foreground: var(--amber-11);
+  --destructive: var(--tomato-9);
+  --destructive-hover: var(--tomato-10);
+  --destructive-soft: var(--tomato-3);
+  --destructive-foreground: #ffffff;        /* text/icon ON the solid destructive fill */
+  --destructive-text: var(--tomato-11);     /* readable red text on soft/light backgrounds */
+  --info: var(--indigo-9);
+  --info-soft: var(--indigo-3);
+  --info-foreground: var(--indigo-11);
+
+  /* Lines & focus */
+  --border: var(--sand-6);
+  --border-strong: var(--sand-7);
+  --input: var(--sand-7);
+  --ring: var(--teal-8);
+}

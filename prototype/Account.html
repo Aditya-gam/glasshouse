@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Account &amp; data rights · Inference Exposure Auditor</title>
+
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('iea_theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      if (t === 'dark') document.documentElement.classList.add('dark');
+    } catch (e) {}
+  })();
+</script>
+
+<link rel="stylesheet" href="_ds/aditya-design-system-25de1704-6fd7-4a46-907e-3af1dff6c2fd/styles.css">
+<link rel="stylesheet" href="styles/app.css">
+<link rel="stylesheet" href="styles/dashboard.css">
+<link rel="stylesheet" href="styles/attribution.css">
+<link rel="stylesheet" href="styles/account.css">
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script src="_ds/aditya-design-system-25de1704-6fd7-4a46-907e-3af1dff6c2fd/_ds_bundle.js"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="js/icons.jsx"></script>
+<script type="text/babel" src="js/dashboard-data.jsx"></script>
+<script type="text/babel" src="js/app-shell.jsx"></script>
+<script type="text/babel" src="js/account.jsx"></script>
+</body>
+</html>
