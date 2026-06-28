@@ -28,7 +28,7 @@ Atomic, ordered, testable in isolation. `id — task — (⟵ needs) — [doc] �
 - [x] M0.9 — Clerk webhook (Svix-verified) — (⟵ M0.6) — [webhooks] — done: signature verified, user synced
 
 ## M1 — Ingest + Attack (text)
-- [ ] M1.1 — ingestion service + adapter interface — (⟵ M0.3) — [services-ingestion] — done: parsed → canonical
+- [x] M1.1 — ingestion service + adapter interface — (⟵ M0.3) — [services-ingestion] — done: parsed → canonical
 - [ ] M1.2 — third-party-drop (pre encrypt/embed) — (⟵ M1.1) — [third-party-drop] — done: drop test green
 - [ ] M1.3 — encrypt (T2) + `content_hmac` dedupe + embed → pgvector — (⟵ M1.2, M0.8) — [canonical-item] — done: stored encrypted+embedded
 - [ ] M1.4 — upload adapters (X/Reddit/Takeout/photos) — (⟵ M1.1) — [sources/*] — done: each → canonical items
@@ -65,7 +65,7 @@ Atomic, ordered, testable in isolation. `id — task — (⟵ needs) — [doc] �
 
 ## M5 — API (backend half → the cross-repo seam)
 - [x] M5.1 — Pydantic DTOs (per-op) + OpenAPI + problem+json — (⟵ M1–M4 services) — 🔓 **unblocks FE/M5.4** — [schemas/error-model] — done: OpenAPI published, Schemathesis green
-- [ ] M5.2 — `/v1` routers + poll + SSE — (⟵ M5.1) — [endpoints/*] — done: 202+run_id, authz, no-IDOR
+- [ ] M5.2 — `/v1` routers + poll + SSE — (⟵ M5.1) — [endpoints/*] — done: 202+run_id, authz, no-IDOR — **partial: POST/GET/poll/SSE live (built early for FE-enablement); list/cancel + pagination remain. Contract drifted since M5.1 (idempotency_key body→header, SSE live) → FE regenerates the client.**
 - [x] M5.C — `scripts/export_openapi` → publish `openapi.json` (versioned artifact) — (⟵ M5.1) — 🔓 **unblocks FE/M5.4** — [repo-structure/contract-tests] — done: artifact published per release
 
 ## M6 — Connectors
