@@ -5,7 +5,7 @@
 `id — task — (⟵ needs) — [doc] — done`. The **one cross-repo gate is M5.4** (needs the backend's published OpenAPI). Everything before it — bootstrap, scaffold, all 7 screens on **MSW mocks** — runs **fully in parallel** with the backend.
 
 ## Bootstrap
-- [ ] R2 — Next.js + TS strict + **pnpm** + Tailwind v4 + shadcn/ui + Lucide, husky + lint-staged, `instrumentation.ts` (OTel), `ci.yml` (tsc/ESLint/Semgrep) — [repo-structure] — done: `next dev` runs; CI green **[no backend dep]**
+- [x] R2 — Next.js + TS strict + **pnpm** + Tailwind v4 + shadcn/ui + Lucide, husky + lint-staged, `instrumentation.ts` (OTel), `ci.yml` (tsc/ESLint/Semgrep) — [repo-structure] — done: `next dev` runs; CI green **[no backend dep]**
 - [ ] R3 — release-please + branch protection + required checks + CODEOWNERS + PR template — (⟵ R2) — [dev-workflow] — done: Release PR opens; red blocks
 
 ## M5 — Frontend (parallel-friendly)
