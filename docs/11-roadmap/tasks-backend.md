@@ -34,7 +34,7 @@ Atomic, ordered, testable in isolation. `id — task — (⟵ needs) — [doc] �
 - [ ] M1.4 — upload adapters (X/Reddit/Takeout/photos) — (⟵ M1.1) — [sources/*] — done: each → canonical items
 - [x] M1.5 — gateway: Proxy client + instructor + slots + startup separation assertion — (⟵ R1) — [llm-gateway] — done: separation asserted
 - [x] M1.6 — Retriever (embedding ∪ recency ∪ always-include, token-capped) — (⟵ M1.3) — [text-inference] — done: recall-first under budget
-- [ ] M1.7 — Profiler joint pass (8 attrs) → RawAttributeGuess[] + normalizer — (⟵ M1.5, M1.6) — [output-schema] — done: canonical AttributeGuess[] persisted
+- [ ] M1.7 — Profiler joint pass (8 attrs) → RawAttributeGuess[] + normalizer — (⟵ M1.5, M1.6) — [output-schema] — done: canonical AttributeGuess[] persisted — **M1.7a done (PR #29): joint 8-attr pass + normalizer + persistence (Art.9 encrypted). M1.7b (geopy/GeoNames geocoding + band parsers) pending — needs a free GeoNames username; CI uses a DI fake.**
 - [ ] M1.8 — self-consistency (N≈3, meaning-clustered) → raw confidence + Hypothesis tests — (⟵ M1.7) — [confidence-and-self-consistency] — done: agreement-fraction signal
 - [ ] M1.9 — attack worker (arq) → inferences(+candidates+evidence) + run_metrics, consent-gated — (⟵ M1.7, M1.10) — [workers] — done: async run persists
 - [ ] M1.10 — consent gate — (⟵ M0.7) — [services-consent] — done: missing consent → blocked
