@@ -7,12 +7,12 @@ Atomic, ordered, testable in isolation. `id — task — (⟵ needs) — [doc] �
 > **Sequencing (contract-first — chosen):** publish the OpenAPI contract **early** — do **M5.1 + M5.C right after T4**, before M0–M4. The DTO shapes are frozen in `06-api/schemas.md`, so define them now and let stub endpoints return `501` until each engine milestone lands. This unblocks **FE/M5.4** immediately (no frontend idle); any DTO change during M1–M4 re-runs M5.C and the FE drift-guard flags staleness.
 
 ## Bootstrap
-- [ ] R1 — uv project (`pyproject.toml`+`uv.lock`), ruff/mypy, `pre-commit` (ruff/mypy/secret-scan), multi-target Dockerfile (distroless prod / slim hot-reload dev), `docker-compose` (Postgres pgvector/pgcrypto · Redis · LiteLLM · Ollama + bind-mount reload), testcontainers harness, `ci.yml` (ruff/mypy/Semgrep) — [repo-structure/local-dev] — done: `make dev`+`make test` run; CI green empty
+- [x] R1 — uv project (`pyproject.toml`+`uv.lock`), ruff/mypy, `pre-commit` (ruff/mypy/secret-scan), multi-target Dockerfile (distroless prod / slim hot-reload dev), `docker-compose` (Postgres pgvector/pgcrypto · Redis · LiteLLM · Ollama + bind-mount reload), testcontainers harness, `ci.yml` (ruff/mypy/Semgrep) — [repo-structure/local-dev] — done: `make dev`+`make test` run; CI green empty
 - [ ] R3 — release-please + branch protection + required checks + CODEOWNERS + PR template — (⟵ R1) — [dev-workflow] — done: Release PR opens; red blocks
 
 ## Tracer bullet (build FIRST)
-- [ ] T1 — minimal FastAPI + `GET /healthz` + async DB session — (⟵ R1) — [05-backend] — done: 200 + DB ping
-- [ ] T2 — encrypted `items` insert + `inferences` read, RLS-scoped — (⟵ T1) — [03-data] — done: A round-trips, invisible to B (testcontainers)
+- [x] T1 — minimal FastAPI + `GET /healthz` + async DB session — (⟵ R1) — [05-backend] — done: 200 + DB ping
+- [x] T2 — encrypted `items` insert + `inferences` read, RLS-scoped — (⟵ T1) — [03-data] — done: A round-trips, invisible to B (testcontainers)
 - [ ] T3 — gateway client → local Ollama → one `RawAttributeGuess` via instructor — (⟵ R1) — [llm-gateway] — done: validated object
 - [ ] T4 — wire T1–T3: `POST /v1/runs{attack}` → infer location → `GET` it — (⟵ T2, T3) — done: end-to-end local, no UI
 

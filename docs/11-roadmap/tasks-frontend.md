@@ -6,7 +6,7 @@
 
 ## Bootstrap
 - [x] R2 — Next.js + TS strict + **pnpm** + Tailwind v4 + shadcn/ui + Lucide, husky + lint-staged, `instrumentation.ts` (OTel), `ci.yml` (tsc/ESLint/Semgrep) — [repo-structure] — done: `next dev` runs; CI green **[no backend dep]**
-- [ ] R3 — release-please + branch protection + required checks + CODEOWNERS + PR template — (⟵ R2) — [dev-workflow] — done: Release PR opens; red blocks
+- [x] R3 — release-please + branch protection + required checks + CODEOWNERS + PR template — (⟵ R2) — [dev-workflow] — done: Release PR opens; red blocks
 
 ## M5 — Frontend (parallel-friendly)
 - [ ] M5.3 — scaffold wired to the design tokens (**sand** + teal · Geist · Lucide); promote the **severity ramp** into the Tailwind v4 `@theme` — (⟵ R2) — [design-system/prototype-mapping] — done: theme + a11y baseline **[no backend dep]**
