@@ -64,9 +64,9 @@ Atomic, ordered, testable in isolation. `id — task — (⟵ needs) — [doc] �
 - [ ] M4.5 — image remediation (strip-EXIF + crop/inpaint/remove, prove vs VLM) — (⟵ M4.3, M3.1) — [image-remediation] — done: side-by-side proven
 
 ## M5 — API (backend half → the cross-repo seam)
-- [ ] M5.1 — Pydantic DTOs (per-op) + OpenAPI + problem+json — (⟵ M1–M4 services) — 🔓 **unblocks FE/M5.4** — [schemas/error-model] — done: OpenAPI published, Schemathesis green
+- [x] M5.1 — Pydantic DTOs (per-op) + OpenAPI + problem+json — (⟵ M1–M4 services) — 🔓 **unblocks FE/M5.4** — [schemas/error-model] — done: OpenAPI published, Schemathesis green
 - [ ] M5.2 — `/v1` routers + poll + SSE — (⟵ M5.1) — [endpoints/*] — done: 202+run_id, authz, no-IDOR
-- [ ] M5.C — `scripts/export_openapi` → publish `openapi.json` (versioned artifact) — (⟵ M5.1) — 🔓 **unblocks FE/M5.4** — [repo-structure/contract-tests] — done: artifact published per release
+- [x] M5.C — `scripts/export_openapi` → publish `openapi.json` (versioned artifact) — (⟵ M5.1) — 🔓 **unblocks FE/M5.4** — [repo-structure/contract-tests] — done: artifact published per release
 
 ## M6 — Connectors
 - [ ] M6.1 — connected_accounts + OAuth (encrypted tokens, read-only) — (⟵ M0.8) — [connectors] — done: link/revoke, token T2
