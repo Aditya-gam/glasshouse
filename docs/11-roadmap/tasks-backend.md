@@ -13,7 +13,7 @@ Atomic, ordered, testable in isolation. `id — task — (⟵ needs) — [doc] �
 ## Tracer bullet (build FIRST)
 - [x] T1 — minimal FastAPI + `GET /healthz` + async DB session — (⟵ R1) — [05-backend] — done: 200 + DB ping
 - [x] T2 — encrypted `items` insert + `inferences` read, RLS-scoped — (⟵ T1) — [03-data] — done: A round-trips, invisible to B (testcontainers)
-- [ ] T3 — gateway client → local Ollama → one `RawAttributeGuess` via instructor — (⟵ R1) — [llm-gateway] — done: validated object
+- [x] T3 — gateway client → local Ollama → one `RawAttributeGuess` via instructor — (⟵ R1) — [llm-gateway] — done: validated object
 - [ ] T4 — wire T1–T3: `POST /v1/runs{attack}` → infer location → `GET` it — (⟵ T2, T3) — done: end-to-end local, no UI
 
 ## M0 — Foundations
