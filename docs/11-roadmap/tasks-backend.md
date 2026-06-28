@@ -21,7 +21,7 @@ Atomic, ordered, testable in isolation. `id — task — (⟵ needs) — [doc] �
 - [x] M0.2 — async DB engine + request-scoped session DI — (⟵ M0.1) — [db-session] — done: opens/commits/rolls-back at edge
 - [x] M0.3 — SQLAlchemy 2.0 models for all v2 tables — (⟵ M0.2) — [tables/*] — done: models match the ER
 - [x] M0.4 — Alembic `0001_init` (tables, enums, pgvector+pgcrypto, indexes, RLS, SECURITY DEFINER decrypt fn) — (⟵ M0.3) — [migrations] — done: `alembic upgrade head` clean
-- [ ] M0.5 — RLS GUC middleware + app-scope helper — (⟵ M0.4) — [rls] — done: RLS-isolation test green (testcontainers)
+- [x] M0.5 — RLS GUC middleware + app-scope helper — (⟵ M0.4) — [rls] — done: RLS-isolation test green (testcontainers)
 - [ ] M0.6 — Clerk JWT verify (JWKS) + current-user dep — (⟵ R1) — [auth-clerk] — done: valid→user, invalid→401
 - [ ] M0.7 — RBAC `require_permission` + role/permission seed — (⟵ M0.6) — [rbac] — done: deny-by-default
 - [ ] M0.8 — crypto (KMS unwrap, pgcrypto bound-param, SECURITY DEFINER) — (⟵ M0.4) — [crypto] — done: round-trip + shred green
