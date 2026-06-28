@@ -8,7 +8,7 @@ Atomic, ordered, testable in isolation. `id — task — (⟵ needs) — [doc] �
 
 ## Bootstrap
 - [x] R1 — uv project (`pyproject.toml`+`uv.lock`), ruff/mypy, `pre-commit` (ruff/mypy/secret-scan), multi-target Dockerfile (distroless prod / slim hot-reload dev), `docker-compose` (Postgres pgvector/pgcrypto · Redis · LiteLLM · Ollama + bind-mount reload), testcontainers harness, `ci.yml` (ruff/mypy/Semgrep) — [repo-structure/local-dev] — done: `make dev`+`make test` run; CI green empty
-- [ ] R3 — release-please + branch protection + required checks + CODEOWNERS + PR template — (⟵ R1) — [dev-workflow] — done: Release PR opens; red blocks
+- [x] R3 — release-please + branch protection + required checks + CODEOWNERS + PR template — (⟵ R1) — [dev-workflow] — done: Release PR opens; red blocks
 
 ## Tracer bullet (build FIRST)
 - [x] T1 — minimal FastAPI + `GET /healthz` + async DB session — (⟵ R1) — [05-backend] — done: 200 + DB ping
@@ -30,7 +30,7 @@ Atomic, ordered, testable in isolation. `id — task — (⟵ needs) — [doc] �
 ## M1 — Ingest + Attack (text)
 - [x] M1.1 — ingestion service + adapter interface — (⟵ M0.3) — [services-ingestion] — done: parsed → canonical
 - [x] M1.2 — third-party-drop (pre encrypt/embed) — (⟵ M1.1) — [third-party-drop] — done: drop test green
-- [ ] M1.3 — encrypt (T2) + `content_hmac` dedupe + embed → pgvector — (⟵ M1.2, M0.8) — [canonical-item] — done: stored encrypted+embedded
+- [x] M1.3 — encrypt (T2) + `content_hmac` dedupe + embed → pgvector — (⟵ M1.2, M0.8) — [canonical-item] — done: stored encrypted+embedded
 - [ ] M1.4 — upload adapters (X/Reddit/Takeout/photos) — (⟵ M1.1) — [sources/*] — done: each → canonical items
 - [ ] M1.5 — gateway: Proxy client + instructor + slots + startup separation assertion — (⟵ R1) — [llm-gateway] — done: separation asserted
 - [ ] M1.6 — Retriever (embedding ∪ recency ∪ always-include, token-capped) — (⟵ M1.3) — [text-inference] — done: recall-first under budget
