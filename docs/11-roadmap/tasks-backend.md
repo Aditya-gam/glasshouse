@@ -14,10 +14,10 @@ Atomic, ordered, testable in isolation. `id — task — (⟵ needs) — [doc] �
 - [x] T1 — minimal FastAPI + `GET /healthz` + async DB session — (⟵ R1) — [05-backend] — done: 200 + DB ping
 - [x] T2 — encrypted `items` insert + `inferences` read, RLS-scoped — (⟵ T1) — [03-data] — done: A round-trips, invisible to B (testcontainers)
 - [x] T3 — gateway client → local Ollama → one `RawAttributeGuess` via instructor — (⟵ R1) — [llm-gateway] — done: validated object
-- [ ] T4 — wire T1–T3: `POST /v1/runs{attack}` → infer location → `GET` it — (⟵ T2, T3) — done: end-to-end local, no UI
+- [x] T4 — wire T1–T3: `POST /v1/runs{attack}` → infer location → `GET` it — (⟵ T2, T3) — done: end-to-end local, no UI
 
 ## M0 — Foundations
-- [ ] M0.1 — config (`pydantic-settings`, per-module `BaseSettings`) — (⟵ R1) — [config-and-secrets] — done: env-loaded, `mypy --strict` clean
+- [x] M0.1 — config (`pydantic-settings`, per-module `BaseSettings`) — (⟵ R1) — [config-and-secrets] — done: env-loaded, `mypy --strict` clean
 - [ ] M0.2 — async DB engine + request-scoped session DI — (⟵ M0.1) — [db-session] — done: opens/commits/rolls-back at edge
 - [ ] M0.3 — SQLAlchemy 2.0 models for all v2 tables — (⟵ M0.2) — [tables/*] — done: models match the ER
 - [ ] M0.4 — Alembic `0001_init` (tables, enums, pgvector+pgcrypto, indexes, RLS, SECURITY DEFINER decrypt fn) — (⟵ M0.3) — [migrations] — done: `alembic upgrade head` clean
