@@ -18,5 +18,5 @@
 - [x] M5.7 — a11y refactors (prototype HANDOFF §6): card-as-link + overlay (drop nested buttons), focus-on-route-change, verify Dialog focus-trap, calibration-chart data table — (⟵ M5.5) — [prototype-mapping] — done: axe clean + keyboard pass
 
 ## M7 — Polish (frontend)
-- [ ] M7.2 — deploy: Vercel (native Git, PR previews) — (⟵ R2) — [infrastructure] — done: live URL, previews per PR — **repo-side ready (PR #15: zero-config, build verified w/ + w/o Clerk); awaiting human Vercel import + env vars**
-- [ ] M7.3 — CI/CD: tsc/ESLint · **client drift-guard** · Semgrep · Vitest · Playwright + merge→staging→manual-promote→prod — [ci-cd/github-actions] — done: red gate blocks
+- [x] M7.2 — deploy: Vercel (native Git, PR previews) — (⟵ R2) — [infrastructure] — done: live URL, previews per PR — **repo-side ready (PR #15: zero-config, build verified w/ + w/o Clerk); awaiting human Vercel import + env vars**
+- [ ] M7.3 — CI/CD: tsc/ESLint · **client drift-guard** · Semgrep · Vitest · Playwright + merge→staging→manual-promote→prod — [ci-cd/github-actions] — done: red gate blocks — **CI green: tsc/ESLint · drift-guard · Semgrep · Vitest · CodeQL · SonarCloud · Vercel live + PR previews. Playwright E2E + prod-promote pending the deployed backend.**
