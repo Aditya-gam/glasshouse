@@ -2,7 +2,7 @@
 
 > **Depends on:** `claude-design-brief.md`, `app-shell-and-layout.md`, `user-flows/*`, `design-system.md` · **Version:** v1
 
-How to generate the **full** Inference Exposure Auditor UI in Claude Design against your imported personal design system.
+How to generate the **full** Glasshouse UI in Claude Design against your imported personal design system.
 
 **Foundation = your personal design system** (`~/Documents/Projects 2/design-system`): warm **sand** neutral, **teal** accent (this app's accent), **Geist**, shadcn/ui, **Lucide**, light + dark. The earlier **slate** neutral (ADR 0011) is **superseded** — sand is the shared brand; teal is this app's accent.
 

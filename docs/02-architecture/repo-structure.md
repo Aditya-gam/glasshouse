@@ -5,7 +5,7 @@
 > - **Consumed by:** `09-infra-devops/ci-cd.md` + `github-actions.md`, contributors
 > - **Version:** v3 (**polyrepo** — two repos; uv; generated client; per-repo CI)
 
-**Three repositories** (ADR 0013), all **public**: a **hub** — `inference-exposure-auditor` (this folder: `docs/` + `prototype/` + the portfolio README) — plus two self-contained **code** repos, **`backend`** (Python) and **`frontend`** (TypeScript), each with its own Docker, CI, tests, pre-commit, release-please, and deploy. The backend publishes `openapi.json`; the frontend generates its typed client from it, and syncs from the hub's `prototype/` (sibling path during local dev).
+**Three repositories** (ADR 0013), all **public**: a **hub** — `glasshouse` (this folder: `docs/` + `prototype/` + the portfolio README) — plus two self-contained **code** repos, **`backend`** (Python) and **`frontend`** (TypeScript), each with its own Docker, CI, tests, pre-commit, release-please, and deploy. The backend publishes `openapi.json`; the frontend generates its typed client from it, and syncs from the hub's `prototype/` (sibling path during local dev).
 
 ## `backend` repo (Python · FastAPI · uv)
 ```

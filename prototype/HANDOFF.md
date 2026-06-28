@@ -1,4 +1,4 @@
-# Inference Exposure Auditor — Prototype Handoff
+# Glasshouse — Prototype Handoff
 
 > **Purpose:** reconcile the planning docs against what the prototype **actually is**. Where the build differs from the brief or `design-tokens.json`, it's flagged in §7. Where I'm not certain, it says so.
 

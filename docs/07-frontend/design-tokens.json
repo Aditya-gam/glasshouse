@@ -1,6 +1,6 @@
 {
   "$meta": {
-    "name": "Inference Exposure Auditor — design tokens",
+    "name": "Glasshouse — design tokens",
     "version": "2",
     "system": "Aditya Design System (Radix Colors 12-step, light + dark) consumed via Tailwind v4 @theme",
     "icons": "Lucide",
