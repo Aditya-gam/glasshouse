@@ -32,7 +32,7 @@ Atomic, ordered, testable in isolation. `id — task — (⟵ needs) — [doc] �
 - [x] M1.2 — third-party-drop (pre encrypt/embed) — (⟵ M1.1) — [third-party-drop] — done: drop test green
 - [x] M1.3 — encrypt (T2) + `content_hmac` dedupe + embed → pgvector — (⟵ M1.2, M0.8) — [canonical-item] — done: stored encrypted+embedded
 - [ ] M1.4 — upload adapters (X/Reddit/Takeout/photos) — (⟵ M1.1) — [sources/*] — done: each → canonical items
-- [ ] M1.5 — gateway: Proxy client + instructor + slots + startup separation assertion — (⟵ R1) — [llm-gateway] — done: separation asserted
+- [x] M1.5 — gateway: Proxy client + instructor + slots + startup separation assertion — (⟵ R1) — [llm-gateway] — done: separation asserted
 - [ ] M1.6 — Retriever (embedding ∪ recency ∪ always-include, token-capped) — (⟵ M1.3) — [text-inference] — done: recall-first under budget
 - [ ] M1.7 — Profiler joint pass (8 attrs) → RawAttributeGuess[] + normalizer — (⟵ M1.5, M1.6) — [output-schema] — done: canonical AttributeGuess[] persisted
 - [ ] M1.8 — self-consistency (N≈3, meaning-clustered) → raw confidence + Hypothesis tests — (⟵ M1.7) — [confidence-and-self-consistency] — done: agreement-fraction signal
