@@ -24,8 +24,8 @@ Atomic, ordered, testable in isolation. `id — task — (⟵ needs) — [doc] �
 - [x] M0.5 — RLS GUC middleware + app-scope helper — (⟵ M0.4) — [rls] — done: RLS-isolation test green (testcontainers)
 - [x] M0.6 — Clerk JWT verify (JWKS) + current-user dep — (⟵ R1) — [auth-clerk] — done: valid→user, invalid→401
 - [x] M0.7 — RBAC `require_permission` + role/permission seed — (⟵ M0.6) — [rbac] — done: deny-by-default
-- [ ] M0.8 — crypto (KMS unwrap, pgcrypto bound-param, SECURITY DEFINER) — (⟵ M0.4) — [crypto] — done: round-trip + shred green
-- [ ] M0.9 — Clerk webhook (Svix-verified) — (⟵ M0.6) — [webhooks] — done: signature verified, user synced
+- [x] M0.8 — crypto (KMS unwrap, pgcrypto bound-param, SECURITY DEFINER) — (⟵ M0.4) — [crypto] — done: round-trip + shred green
+- [x] M0.9 — Clerk webhook (Svix-verified) — (⟵ M0.6) — [webhooks] — done: signature verified, user synced
 
 ## M1 — Ingest + Attack (text)
 - [ ] M1.1 — ingestion service + adapter interface — (⟵ M0.3) — [services-ingestion] — done: parsed → canonical
