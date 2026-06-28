@@ -19,7 +19,7 @@ Atomic, ordered, testable in isolation. `id — task — (⟵ needs) — [doc] �
 ## M0 — Foundations
 - [x] M0.1 — config (`pydantic-settings`, per-module `BaseSettings`) — (⟵ R1) — [config-and-secrets] — done: env-loaded, `mypy --strict` clean
 - [x] M0.2 — async DB engine + request-scoped session DI — (⟵ M0.1) — [db-session] — done: opens/commits/rolls-back at edge
-- [ ] M0.3 — SQLAlchemy 2.0 models for all v2 tables — (⟵ M0.2) — [tables/*] — done: models match the ER
+- [x] M0.3 — SQLAlchemy 2.0 models for all v2 tables — (⟵ M0.2) — [tables/*] — done: models match the ER
 - [ ] M0.4 — Alembic `0001_init` (tables, enums, pgvector+pgcrypto, indexes, RLS, SECURITY DEFINER decrypt fn) — (⟵ M0.3) — [migrations] — done: `alembic upgrade head` clean
 - [ ] M0.5 — RLS GUC middleware + app-scope helper — (⟵ M0.4) — [rls] — done: RLS-isolation test green (testcontainers)
 - [ ] M0.6 — Clerk JWT verify (JWKS) + current-user dep — (⟵ R1) — [auth-clerk] — done: valid→user, invalid→401
