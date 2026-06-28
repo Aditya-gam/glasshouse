@@ -1,5 +1,7 @@
 # Glasshouse
 
+![license](https://img.shields.io/badge/license-MIT-blue)
+
 **Find out what an AI can infer about you from your own posts — then break it, and prove it broke.**
 
 Glasshouse runs an LLM **attribute-inference attack** on your *own* social footprint (text + images),
@@ -28,6 +30,19 @@ edits actually neutralize it — **advise-only**, never touching your accounts.
 - **Attack** — a multi-agent profiler (LiteLLM-proxied gateway) infers 8 attributes from text + images, with self-consistency confidence and evidence attribution.
 - **Measure** — the same engine is scored on the **SynthPAI** benchmark; predictions are **calibrated** (a 0.8 guess is right ~76% of the time) and a CI gate fails below an accuracy floor.
 - **Defend** — ablation finds the minimal load-bearing posts; an anonymizer rewrites them; an **independent, held-out adversary** re-attacks to prove the confidence dropped — with intervals, not self-report.
+
+## Architecture
+```mermaid
+flowchart LR
+  UI[Next.js + Clerk] -->|REST| API[FastAPI]
+  API -->|POST /v1/runs → 202 run_id| Q[(Redis · arq)]
+  Q --> W[Workers: attack · eval · remediation]
+  W --> GW[LiteLLM proxy]
+  GW --> M[Ollama local · cloud LLM / VLM]
+  API --> DB[(Postgres · pgvector · pgcrypto)]
+  W --> DB
+```
+The **LiteLLM proxy is the single model egress** — the privacy boundary; it never logs content. Every run is async: the API returns a `run_id`, the client polls or subscribes to SSE.
 
 ## Stack
 **Backend:** FastAPI (3.12) · SQLAlchemy 2.0 async + Alembic · arq (Redis) · pydantic v2 · Postgres + pgvector + pgcrypto · per-user DEK + crypto-shred · Clerk auth + RBAC.
