@@ -7,5 +7,5 @@ Required because we process **special-category data** (Art. 9 inference) at scal
 - **Processing** — inferring personal attributes (incl. birthplace, an ethnicity proxy) from a user's own footprint, for a self-audit; advise-only remediation.
 - **Necessity/proportionality** — purpose is the user's *own* protection; self-audit-only + third-party-drop minimize the surface; consent (incl. explicit Art. 9) is the lawful basis.
 - **Risks** — re-exposure of sensitive inferences; breach; sub-processor leak; false sense of safety; misuse for profiling others.
-- **Mitigations** — encryption + crypto-shred; RLS + app-layer scope; no-logging; in-memory-only egress; consent gate; advise-only + no-false-safety; self-audit-only by design.
+- **Mitigations** — encryption + crypto-shred; RLS + app-layer scope; no-logging; in-memory-only content egress; **GeoNames geocoding carries place names only (no content/identity), behind a DI port with offline alternatives**; consent gate; advise-only + no-false-safety; self-audit-only by design.
 - **Residual risk** — low and justified given the user-protective purpose, encryption, and consent; reviewed when scope/sub-processors change.
