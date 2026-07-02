@@ -41,7 +41,7 @@ Atomic, ordered, testable in isolation. `id — task — (⟵ needs) — [doc] �
 
 ## M2 — Measure
 - [x] M2.1 — SynthPAI loader → profiles/items/eval_labels — (⟵ M0.4) — [loader-synthpai] — done: seeded once
-- [ ] M2.2 — eval service (same engine) → match → eval_results — (⟵ M2.1, M1.7) — [services-eval] — done: top-1/top-3 per attr
+- [x] M2.2 — eval service (same engine) → match → eval_results — (⟵ M2.1, M1.7) — [services-eval] — done: top-1/top-3 per attr
 - [ ] M2.3 — match + utility judges (reference-anchored) — (⟵ M1.5) — [adversary-judge] — done: verdicts + spot-check hook
 - [ ] M2.4 — calibration + noise model → calibration (pinned engine_version) — (⟵ M2.2) — [calibration] — done: reliability map
 - [ ] M2.5 — per-user scoring (raw → calibrated) — (⟵ M2.4) — [per-user-scoring] — done: calibrated stored, raw hidden
