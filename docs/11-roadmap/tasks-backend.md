@@ -31,12 +31,12 @@ Atomic, ordered, testable in isolation. `id — task — (⟵ needs) — [doc] �
 - [x] M1.1 — ingestion service + adapter interface — (⟵ M0.3) — [services-ingestion] — done: parsed → canonical
 - [x] M1.2 — third-party-drop (pre encrypt/embed) — (⟵ M1.1) — [third-party-drop] — done: drop test green
 - [x] M1.3 — encrypt (T2) + `content_hmac` dedupe + embed → pgvector — (⟵ M1.2, M0.8) — [canonical-item] — done: stored encrypted+embedded
-- [ ] M1.4 — upload adapters (X/Reddit/Takeout/photos) — (⟵ M1.1) — [sources/*] — done: each → canonical items
+- [x] M1.4 — upload adapters (X/Reddit/Takeout/photos) — (⟵ M1.1) — [sources/*] — done: each → canonical items
 - [x] M1.5 — gateway: Proxy client + instructor + slots + startup separation assertion — (⟵ R1) — [llm-gateway] — done: separation asserted
 - [x] M1.6 — Retriever (embedding ∪ recency ∪ always-include, token-capped) — (⟵ M1.3) — [text-inference] — done: recall-first under budget
 - [x] M1.7 — Profiler joint pass (8 attrs) → RawAttributeGuess[] + normalizer — (⟵ M1.5, M1.6) — [output-schema] — done: canonical AttributeGuess[] persisted — **M1.7a done (PR #29): joint 8-attr pass + normalizer + persistence (Art.9 encrypted). M1.7b done (PR #30): GeoNames geocoding (DI port, fail-closed to heuristic split) + age/income band parsers + categorical synonyms; geonames_id persisted (Art.9 birthplace geo encrypted). Real geocoding needs **"free web services" enabled** on the GeoNames account; CI/local use the NullGeocoder fake.**
 - [x] M1.8 — self-consistency (N≈3, meaning-clustered) → raw confidence + Hypothesis tests — (⟵ M1.7) — [confidence-and-self-consistency] — done: agreement-fraction signal — **M1.8a done (PR #31): N=3 ensemble, meaning-clustered top-1, confidence.raw = agreement fraction, abstain < ⌈N/2⌉, Hypothesis property tests. M1.8b done (PR #32): geo per-level clustering (precision_level from per-level agreement, geonames_id preserved) + occupation semantic judge (judge slot + OccupationJudge port, degrades to string match). M1.8 complete.**
-- [ ] M1.9 — attack worker (arq) → inferences(+candidates+evidence) + run_metrics, consent-gated — (⟵ M1.7, M1.10) — [workers] — done: async run persists
+- [x] M1.9 — attack worker (arq) → inferences(+candidates+evidence) + run_metrics, consent-gated — (⟵ M1.7, M1.10) — [workers] — done: async run persists
 - [x] M1.10 — consent gate — (⟵ M0.7) — [services-consent] — done: missing consent → blocked — **M1.10 done (PR #33): require_consent (deny-by-default, RLS-scoped, non-revoked) + Art.9 special-category consent + 403 problem+json; gate in the SERVICE layer so the worker can't bypass it. M1.9 (worker) is the last M1 task.**
 
 ## M2 — Measure
