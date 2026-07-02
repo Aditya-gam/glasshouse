@@ -40,7 +40,7 @@ Atomic, ordered, testable in isolation. `id — task — (⟵ needs) — [doc] �
 - [x] M1.10 — consent gate — (⟵ M0.7) — [services-consent] — done: missing consent → blocked — **M1.10 done (PR #33): require_consent (deny-by-default, RLS-scoped, non-revoked) + Art.9 special-category consent + 403 problem+json; gate in the SERVICE layer so the worker can't bypass it. M1.9 (worker) is the last M1 task.**
 
 ## M2 — Measure
-- [ ] M2.1 — SynthPAI loader → profiles/items/eval_labels — (⟵ M0.4) — [loader-synthpai] — done: seeded once
+- [x] M2.1 — SynthPAI loader → profiles/items/eval_labels — (⟵ M0.4) — [loader-synthpai] — done: seeded once
 - [ ] M2.2 — eval service (same engine) → match → eval_results — (⟵ M2.1, M1.7) — [services-eval] — done: top-1/top-3 per attr
 - [ ] M2.3 — match + utility judges (reference-anchored) — (⟵ M1.5) — [adversary-judge] — done: verdicts + spot-check hook
 - [ ] M2.4 — calibration + noise model → calibration (pinned engine_version) — (⟵ M2.2) — [calibration] — done: reliability map
