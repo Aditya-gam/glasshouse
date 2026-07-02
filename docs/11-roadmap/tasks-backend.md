@@ -65,7 +65,7 @@ Atomic, ordered, testable in isolation. `id — task — (⟵ needs) — [doc] �
 
 ## M5 — API (backend half → the cross-repo seam)
 - [x] M5.1 — Pydantic DTOs (per-op) + OpenAPI + problem+json — (⟵ M1–M4 services) — 🔓 **unblocks FE/M5.4** — [schemas/error-model] — done: OpenAPI published, Schemathesis green
-- [ ] M5.2 — `/v1` routers + poll + SSE — (⟵ M5.1) — [endpoints/*] — done: 202+run_id, authz, no-IDOR — **partial: POST/GET/poll/SSE live (built early for FE-enablement); list/cancel + pagination remain. Contract drifted since M5.1 (idempotency_key body→header, SSE live) → FE regenerates the client. READ endpoints still 501 (GET /v1/inferences etc.) — must be flipped to real as each milestone's data lands (M1 inferences NOW); AttributeRead needs `id` for the detail endpoint. Surfaced by FE PR #42.**
+- [ ] M5.2 — `/v1` routers + poll + SSE — (⟵ M5.1) — [endpoints/*] — done: 202+run_id, authz, no-IDOR — **partial: POST/GET/poll/SSE live (built early for FE-enablement); list/cancel + pagination remain. Contract drifted since M5.1 (idempotency_key body→header, SSE live) → FE regenerates the client. READ endpoints still 501 (GET /v1/inferences etc.) — must be flipped to real once the **calibrated** shapes exist (inferences → M2.4/M2.5 calibration; eval → M2; remediations → M3) — the dashboard needs calibrated reliability, not raw. Movable independently NOW: `AttributeRead.id` (unblocks FE detail-swap wiring) + the compose fixes (worker in the default profile; stale venv volume). Surfaced by FE PR #42.**
 - [x] M5.C — `scripts/export_openapi` → publish `openapi.json` (versioned artifact) — (⟵ M5.1) — 🔓 **unblocks FE/M5.4** — [repo-structure/contract-tests] — done: artifact published per release
 
 ## M6 — Connectors
