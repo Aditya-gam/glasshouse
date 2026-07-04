@@ -43,7 +43,7 @@ Atomic, ordered, testable in isolation. `id — task — (⟵ needs) — [doc] �
 - [x] M2.1 — SynthPAI loader → profiles/items/eval_labels — (⟵ M0.4) — [loader-synthpai] — done: seeded once
 - [x] M2.2 — eval service (same engine) → match → eval_results — (⟵ M2.1, M1.7) — [services-eval] — done: top-1/top-3 per attr
 - [x] M2.3 — match + utility judges (reference-anchored) — (⟵ M1.5) — [adversary-judge] — done: verdicts + spot-check hook — **M2.3 done (PR #39): match_judge_v1 (LLM verdict on the judge slot; escalate only ambiguous occ/geo misses; partial→spot-check; outage→deterministic; eval_results pins the judge version). Utility judge relocated to M3.5 (utility-preservation).**
-- [ ] M2.4 — calibration + noise model → calibration (pinned engine_version) — (⟵ M2.2) — [calibration] — done: reliability map
+- [x] M2.4 — calibration + noise model → calibration (pinned engine_version) — (⟵ M2.2) — [calibration] — done: reliability map — **M2.4 done (PR #40): build_calibration → per-bucket empirical_accuracy + ECE, upserted keyed by engine_version (stale map never reused); epsilon-tolerant bucket floor; migration 0007. noise_std (run-to-run noise) deferred — multi-pass follow-up, feeds M3.4 intervals.**
 - [ ] M2.5 — per-user scoring (raw → calibrated) — (⟵ M2.4) — [per-user-scoring] — done: calibrated stored, raw hidden
 - [ ] M2.6 — CI eval-gate (floor) — (⟵ M2.2) — [eval-as-ci-gate] — done: regression fails build
 
