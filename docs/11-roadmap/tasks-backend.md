@@ -48,12 +48,12 @@ Atomic, ordered, testable in isolation. `id — task — (⟵ needs) — [doc] �
 - [x] M2.6 — CI eval-gate (floor) — (⟵ M2.2) — [eval-as-ci-gate] — done: regression fails build — **M2.6 done (PR #43): pure check_eval_floor + per-PR gate (fixture eval → floor in the required Tests job) + operator scripts/eval_gate.py + committed eval_floor.json. M2 (Measure) COMPLETE.**
 
 ## M3 — Defend (text) — the 0.86→0.21
-- [ ] M3.1 — independent adversary (held-out, diff model, blind) — (⟵ M1.7) — [independent-adversary] — done: before/after via adversary
-- [ ] M3.2 — ablation (greedy minimal-subset + clustering, N=1) → marginal_effect — (⟵ M3.1) — [attribution-ablation] — done: minimal set
-- [ ] M3.3 — anonymizer loop (k≈3, generalization-first, self-arbitration) — (⟵ M3.2) — [anonymize-text] — done: localized truthful edits
-- [ ] M3.4 — noise floor + paired bootstrap + value-recovery flip — (⟵ M3.1) — [noise-floor-and-variance] — done: significant/"not proven" + intervals
-- [ ] M3.5 — utility judge + privacy/utility frontier — (⟵ M3.3) — [utility-preservation] — done: utility score + options
-- [ ] M3.6 — decoy (opt-in, consent-gated, off-by-default) — (⟵ M3.3) — [text-remediation] — done: per-use confirm
+- [x] M3.1 — independent adversary (held-out, diff model, blind) — (⟵ M1.7) — [independent-adversary] — done: before/after via adversary
+- [x] M3.2 — ablation (greedy minimal-subset + clustering, N=1) → marginal_effect — (⟵ M3.1) — [attribution-ablation] — done: minimal set
+- [x] M3.3 — anonymizer loop (k≈3, generalization-first, self-arbitration) — (⟵ M3.2) — [anonymize-text] — done: localized truthful edits
+- [x] M3.4 — noise floor + paired bootstrap + value-recovery flip — (⟵ M3.1) — [noise-floor-and-variance] — done: significant/"not proven" + intervals
+- [x] M3.5 — utility judge + privacy/utility frontier — (⟵ M3.3) — [utility-preservation] — done: utility score + options
+- [x] M3.6 — decoy (opt-in, consent-gated, off-by-default) — (⟵ M3.3) — [text-remediation] — done: per-use confirm
 - [ ] M3.7 — remediation worker → remediations (proven before/after, advise-only) — (⟵ M3.4, M3.5) — [workers] — done: result persisted
 
 ## M4 — Images
