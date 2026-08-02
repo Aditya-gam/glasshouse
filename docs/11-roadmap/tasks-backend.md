@@ -54,7 +54,7 @@ Atomic, ordered, testable in isolation. `id — task — (⟵ needs) — [doc] �
 - [x] M3.4 — noise floor + paired bootstrap + value-recovery flip — (⟵ M3.1) — [noise-floor-and-variance] — done: significant/"not proven" + intervals
 - [x] M3.5 — utility judge + privacy/utility frontier — (⟵ M3.3) — [utility-preservation] — done: utility score + options
 - [x] M3.6 — decoy (opt-in, consent-gated, off-by-default) — (⟵ M3.3) — [text-remediation] — done: per-use confirm
-- [ ] M3.7 — remediation worker → remediations (proven before/after, advise-only) — (⟵ M3.4, M3.5) — [workers] — done: result persisted
+- [x] M3.7 — remediation worker → remediations (proven before/after, advise-only) — (⟵ M3.4, M3.5) — [workers] — done: result persisted — **M3.7 worker + M3.8 read done (PR #52): GET /v1/remediations/{run_id} + ?inference_id= live → RemediationRead {proven/within_noise/cant_break, target, options[]}; honest same-scale before/after; DefendEdit.edited added. M3 (Defend) COMPLETE — the 0.86→0.21 is runnable + readable end-to-end; FE defend screen unblocked. Adversarial review closed 2 honesty-boundary test gaps.**
 
 ## M4 — Images
 - [ ] M4.1 — media ingestion: R2 (app-side-encrypted) + media_assets + EXIF → exif_findings — (⟵ M0.8) — [images-and-exif] — done: image stored, EXIF parsed
