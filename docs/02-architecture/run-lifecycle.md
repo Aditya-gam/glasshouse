@@ -4,9 +4,9 @@
 > - **Depends on:** `system-overview.md`, `archive/architecture.md` (the flat source), `04-ai-engine/*` (the stage internals)
 > - **Consumed by:** `05-backend/modules/workers.md`, `06-api/endpoints/runs.md`, `03-data/database/tables/runs.md`
 > - **Hard invalidations:** changing the run states or idempotency → update the `runs` table + API + workers
-> - **Version:** v1 (split from `archive/architecture.md`; reconciled to the engine stages)
+> - **Version:** v2 (+`ingestion` and `export` run types, `11-roadmap/plans/write-paths.md` D2)
 
-Every unit of model work is a **`run`** (`attack | eval | remediation`), async via the Redis queue.
+Every unit of async work is a **`run`**, via the Redis queue. Model work is `attack | eval | remediation`; since the write-paths milestone, `ingestion` (an upload being parsed and stored) and `export` (a DSAR bundle being assembled) are runs too, created only by `POST /v1/imports` and `POST /v1/account/export`.
 
 ## State machine
 ```

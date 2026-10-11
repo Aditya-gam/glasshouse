@@ -1,12 +1,12 @@
 # API — Schemas (DTOs)
 
-> **Depends on:** `.claude/rules/api-design.md` + `backend.md`, `03-data/database/tables/*`, `07-frontend/prototype-mapping.md` (the UI data shapes) · **Consumed by:** OpenAPI, contract tests, the frontend (generated client + Zod) · **Version:** v2 (reconciled with the prototype data shapes)
+> **Depends on:** `.claude/rules/api-design.md` + `backend.md`, `03-data/database/tables/*`, `07-frontend/prototype-mapping.md` (the UI data shapes) · **Consumed by:** OpenAPI, contract tests, the frontend (generated client + Zod) · **Version:** v3 (write-paths DTOs frozen in backend PR #59)
 
 Pydantic v2 DTOs are the wire contract — **never** the ORM models. Reliability is **always calibrated point + interval** (`{point, lo, hi}`); raw model confidence is never serialized.
 
 - **Per-operation schemas** — create/read/update differ. A custom base model standardizes datetime/serialization.
 - **Error DTO** — RFC 9457 problem+json (extension members for machine-readable detail).
-- **Async** — `RunCreate {type, params, idempotency_key}` → `202 {run_id}`; `RunStatus {id, type, status, engine_version, error?}`; poll `GET /runs/{id}` or SSE `…/events`.
+- **Async** — `RunCreate {type, params}` (+ the `Idempotency-Key` header) → `202 {run_id}`; `RunStatus {id, type, status, engine_version, error?}`; poll `GET /runs/{id}` or SSE `…/events`. `RunCreate.type` is `attack | eval | remediation`; `RunStatus.type` also reports `ingestion | export`, which only their own endpoints create.
 
 ## Core type (calibrated)
 - `Reliability { point: float; lo: float; hi: float }` — 0..1; the UI renders %.
@@ -18,7 +18,11 @@ Pydantic v2 DTOs are the wire contract — **never** the ORM models. Reliability
 - **`RemediationRead`** — `status: 'proven'|'within_noise'|'cant_break', target: {attribute, value, before: Reliability}, options: DefendOptionRead[]`.
 - **`DefendOptionRead`** — `key: 'minimal'|'stronger'|'remove'|'decoy', name, desc, truthful, recommended?, opt_in?, after: Reliability, recovered, misled? (decoy), utility: int|null, utility_label, edits: DefendEdit[]`.
 - **`BenchmarkRead`** — `rows: {label, top1, top3}[], calibration: [predicted, empirical][]`.
-- `ImportRead` (kept/dropped), `ConnectedAccountRead`, `ConsentRead {purpose, art9, decoy}`, `AccountRead`, `EvalResultRead`.
+- **`AccountRead`** — `consents: ConsentRead, retention: 'retain'|'discard', connected_accounts: ConnectedAccountRead[], current_policy_version` *(the last field is an amendment decided 2026-10-11, pending in the contract)*.
+- **`ConsentRead`** — `{self_audit, art9_inference, decoy}`, each a **`ConsentState`** `{granted, policy_version?, granted_at?}`. **`ConsentGrant`** — `{purpose, policy_version}` *(`policy_version` pending, same amendment)*.
+- **`ImportRead`** — `id, platform?, status, run_id?, kept_count?, dropped_count?, created_at?`. Upload is `multipart/form-data` (`platform`, `files[]`; needs `python-multipart`).
+- **`InferenceConfirm`** `{candidate_id, confirmed}` → **`InferenceConfirmRead`** `{inference_id, candidate_id, confirmed}`; `AttributeFindingRead.candidates[]` carry `id`.
+- `ConnectedAccountRead`, `RetentionUpdate {retention}`, `EvalResultRead`.
 
 ## Contract
 - **OpenAPI generated from these** (the contract). The frontend **generates its typed client** from the published schema (`@hey-api/openapi-ts`) and validates with **Zod** at the boundary.

@@ -1,6 +1,6 @@
 # API — Endpoints: Runs
 
-> **Depends on:** `06-api/overview.md`, `02-architecture/run-lifecycle.md` · **Version:** v1
+> **Depends on:** `06-api/overview.md`, `02-architecture/run-lifecycle.md` · **Version:** v2 (run types `ingestion` and `export` — backend PR #59)
 
 The single async unit (generic `/runs` + a `type`).
 
@@ -13,3 +13,5 @@ The single async unit (generic `/runs` + a `type`).
 | `POST` | `/v1/runs/{id}:cancel` | request cancellation. |
 
 Idempotent via `runs.idempotency_key` (a retried `POST` returns the same run). Errors as problem+json.
+
+**Run types.** `POST /v1/runs` creates `attack`, `eval` and `remediation` runs only. `ingestion` and `export` runs are created **only** by their own endpoints (`POST /v1/imports`, `POST /v1/account/export`), because each needs input the generic route cannot carry. `RunStatus.type` can be any of the five, and all five are polled, streamed and listed the same way.

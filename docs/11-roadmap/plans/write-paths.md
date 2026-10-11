@@ -59,7 +59,7 @@ D1, D3, D5 and D8 are the material ones; all four were approved as proposed on 2
 
 ### D2 — Ingestion and export are runs
 
-Add `ingestion` and `export` to `runs.type` (CHECK constraint + `RunCreate`/`RunStatus` docs). `POST /v1/imports` and `POST /v1/account/export` return `202 + run_id` and reuse the existing polling and SSE, which the frontend already has. `import_sources` gains `run_id`, `kept_count`, `dropped_count`; import status is derived from the run. Erasure is **not** a run (D5).
+Add `ingestion` and `export` to `runs.type` (CHECK constraint + `RunStatus` docs). `POST /v1/imports` and `POST /v1/account/export` return `202 + run_id` and reuse the existing polling and SSE, which the frontend already has. `RunCreate.type` is **not** widened (settled in WC, 2026-10-11): `POST /v1/runs` cannot carry an upload or drive the export service, so these two run types are created only by their own endpoints. `import_sources` gains `run_id`, `kept_count`, `dropped_count`; import status is derived from the run. Erasure is **not** a run (D5).
 
 ### D3 — Upload shape and limits *(material)*
 
@@ -73,6 +73,7 @@ Add `ingestion` and `export` to `runs.type` (CHECK constraint + `RunCreate`/`Run
 
 - `POST /v1/account/consents {purpose}` grants; `DELETE /v1/account/consents/{purpose}` revokes. The current stub takes a body on `DELETE`, which proxies and generated clients handle badly.
 - `ConsentRead` becomes `{self_audit, art9_inference, decoy}` booleans plus `policy_version` and `granted_at` per purpose. Today it has a boolean field named `purpose`.
+- **The grant names the policy version the user saw** (amendment, 2026-10-11): `ConsentGrant {purpose, policy_version}`; `AccountRead` exposes the server's `current_policy_version`; a grant for any other version is refused with `409` and the client shows the current text. Without this the server would stamp a version the user may never have been shown, which undermines the consent record (GDPR Art. 7(1) demonstrability; Art. 9 explicit consent). The backend's configured policy version is the source of truth; the frontend keeps the policy text keyed by version and refuses to offer a grant for a version it has no text for.
 - Revocation is immediate (workers already re-check consent at execution). Revoking consent stops processing; it does not delete data. Deletion is erasure, and the UI says so.
 
 ### D5 — Erasure is synchronous, and the frontend deletes the Clerk identity *(material)*
