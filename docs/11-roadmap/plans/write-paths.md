@@ -74,7 +74,7 @@ Add `ingestion` and `export` to `runs.type` (CHECK constraint + `RunStatus` docs
 
 - `POST /v1/account/consents {purpose}` grants; `DELETE /v1/account/consents/{purpose}` revokes. The current stub takes a body on `DELETE`, which proxies and generated clients handle badly.
 - `ConsentRead` becomes `{self_audit, art9_inference, decoy}` booleans plus `policy_version` and `granted_at` per purpose. Today it has a boolean field named `purpose`.
-- **The grant names the policy version the user saw** (amendment, 2026-10-11): `ConsentGrant {purpose, policy_version}`; `AccountRead` exposes the server's `current_policy_version`; a grant for any other version is refused with `409` and the client shows the current text. Without this the server would stamp a version the user may never have been shown, which undermines the consent record (GDPR Art. 7(1) demonstrability; Art. 9 explicit consent). The backend's configured policy version is the source of truth; the frontend keeps the policy text keyed by version and refuses to offer a grant for a version it has no text for.
+- **The grant names the policy version the user saw** (amendment, 2026-10-11): `ConsentGrant {purpose, policy_version}`; `AccountRead` exposes the server's `current_policy_version`; a grant for any other version is refused with `409` and the client shows the current text. Without this the server would stamp a version the user may never have been shown, which undermines the consent record (GDPR Art. 7(1) demonstrability; Art. 9 explicit consent). The backend's configured policy version is the source of truth; the frontend keeps the policy text keyed by version and refuses to offer a grant for a version it has no text for. **Initial version: `2026-10-11`** (text in the frontend's `lib/consent/policy.ts`); W1 configures exactly this string. Before any public deploy the text needs a new version that names the AI model providers that receive content and states the retention period (see §9).
 - Revocation is immediate (workers already re-check consent at execution). Revoking consent stops processing; it does not delete data. Deletion is erasure, and the UI says so.
 
 ### D5 — Erasure is synchronous, and the frontend deletes the Clerk identity *(material)*
@@ -149,6 +149,8 @@ Untrusted-input handling for W2 (OWASP A05/A10): size cap enforced on the stream
 
 The frontend starts F1–F3 on mocks as soon as WC is published and flips each to live when its backend task merges, as it did for the four data screens.
 
+**Demo mode is explicit configuration, not inferred from failures** (added 2026-10-11). While the backend routes are stubs, the consent gate lets a 501 or an unreachable backend through so the public demo keeps working. At the W1 live flip that inference is removed: a build with no API base URL configured (or an explicit demo flag) runs on fixtures behind a visible "demo data" label with no gate; a build with a backend configured is strict — every failure denies, and data screens show an error state, never sample data. The public Vercel deployment has no backend until M7 and stays in demo mode until then.
+
 **Model calls in F5.** The audit step needs the gateway. The test stack points LiteLLM at a small mock OpenAI-compatible server that returns schema-valid fixture responses, so the app code has no "fake" branch that could be switched on in production. Real-model behaviour is covered by the first real run at M7, not by this test.
 
 ## 7. Tests that must exist at the end
@@ -183,6 +185,7 @@ Each backend task updates the docs it invalidates in the same change (`00-tracea
 | Low disk on the dev Mac (about 22 GB free) | MinIO image and volumes add pressure | MinIO is small (about 100 MB); upload cap keeps volumes small; prune only with the user's say-so |
 | In-browser zip reading on very large archives | Slow or memory-heavy on old devices | Stream the zip index and read only the needed members; show progress; fall back to "upload the extracted file" instructions |
 | Process-then-discard touches several reads | Regressions in Attribution and Defend | Isolated as W7 + F4b, last, behind its own tests |
+| Consent text does not yet name the AI model providers or the retention period | Incomplete transparency if deployed as is | Acceptable while nothing is deployed with real users; a new policy version with both is required before M7's public deploy |
 | No real-model run until M7 | A real run may expose gateway faults (temperature, refusals) after this milestone | Accepted by decision on 2026-10-07; not addressed here |
 
 ## 10. Size
