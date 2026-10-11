@@ -1,6 +1,6 @@
 # Roadmap — Build Order
 
-> **Depends on:** `05-backend/overview.md`, `milestones.md` · **Version:** v1
+> **Depends on:** `05-backend/overview.md`, `milestones.md` · **Version:** v2 (2026-10: write paths inserted before images)
 
 Dependency-ordered (smallest-dependency-first); each step is testable before the next.
 
@@ -19,3 +19,5 @@ Dependency-ordered (smallest-dependency-first); each step is testable before the
 13. **polish + case study + deploy** (the live URL).
 
 **Two repos** (ADR 0013): steps 1–10 and 12 build the `backend` repo; step 11 builds the `frontend` repo, which consumes the OpenAPI client published by step 10. Mirrors `backend-structure` build order, extended through images, API, frontend, connectors.
+
+**Revision 2026-10:** steps 1–8 and the read half of step 10 are built. The **write paths** (consent, upload + ingestion run, object storage, erasure, retention, export — `plans/write-paths.md`) are built next, before step 9 (images), because images and connectors both feed the upload and ingestion-run machinery. Step 12 is now Bluesky + Mastodon live, with Reddit and X by upload.

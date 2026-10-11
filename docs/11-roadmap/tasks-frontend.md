@@ -18,6 +18,14 @@
 - [x] M5.6 — tests: **Vitest + RTL + MSW** (async RSC → Playwright) + **Playwright** E2E vs preview env — (⟵ M5.4, M5.5, ⛔ **BE deployed** for E2E) — [10-testing] — done: green in CI — **Vitest 71 + Playwright E2E 33 green (PRs #14, #21); axe WCAG-AA sweep (light+dark) caught + fixed 9 contrast bugs. CI E2E needs Clerk repo secrets (runs locally now); live-data E2E awaits the deployed backend. Deeper layers (journeys/invariant/property/edge) added as bonus hardening.**
 - [x] M5.7 — a11y refactors (prototype HANDOFF §6): card-as-link + overlay (drop nested buttons), focus-on-route-change, verify Dialog focus-trap, calibration-chart data table — (⟵ M5.5) — [prototype-mapping] — done: axe clean + keyboard pass
 
+## M5.W — Write paths (frontend — plan: `plans/write-paths.md`, approved 2026-10-11)
+Start F1–F3 on MSW mocks as soon as BE/WC publishes the contract; flip each live when its backend task merges.
+- [ ] F1 — Onboarding: consent step wired; app routes refuse to load without `self_audit` consent (server-side check in the DAL) — (⟵ ⛔ **BE/WC**, then BE/W1) — [onboarding-consent] — done: consent recorded before any other screen; Art. 9 acknowledgement is a separate explicit choice
+- [ ] F2 — Connect: upload with in-browser extraction (Reddit `comments.csv`/`posts.csv`, X `data/tweets.js`), run progress, kept-vs-dropped summary, error states — (⟵ ⛔ **BE/WC**, then BE/W2) — [connect-import, plans/write-paths D3] — done: fixture exports complete; too-large / wrong-file / nothing-kept states render
+- [ ] F3 — Account: consents + revoke, retention switch, export request + download, delete account (typed confirm → backend erasure → Clerk identity deletion → sign-out) — (⟵ ⛔ **BE/WC**, then BE/W1, W3, W4, W5) — [account-data-rights, plans/write-paths D5] — done: every control round-trips live
+- [ ] F4 — confirm/deny on Attribution; F4b "content discarded" states — (⟵ BE/W6; BE/W7) — [attribution] — done: feedback persists; discarded content is a real state
+- [ ] F5 — Playwright first-run journey on the local stack (sign-up → consent → upload → ingestion → audit → dashboard), model calls served by a mock OpenAI-compatible server behind LiteLLM — (⟵ F1–F3, BE/W1–W3) — [e2e-tests] — done: journey passes with a Clerk test user
+
 ## M7 — Polish (frontend)
 - [x] M7.2 — deploy: Vercel (native Git, PR previews) — (⟵ R2) — [infrastructure] — done: live URL, previews per PR — **repo-side ready (PR #15: zero-config, build verified w/ + w/o Clerk); awaiting human Vercel import + env vars**
 - [ ] M7.3 — CI/CD: tsc/ESLint · **client drift-guard** · Semgrep · Vitest · Playwright + merge→staging→manual-promote→prod — [ci-cd/github-actions] — done: red gate blocks — **CI green: tsc/ESLint · drift-guard · Semgrep · Vitest · CodeQL · SonarCloud · Vercel live + PR previews. Playwright E2E + prod-promote pending the deployed backend.**
