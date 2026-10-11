@@ -65,6 +65,7 @@ Add `ingestion` and `export` to `runs.type` (CHECK constraint + `RunStatus` docs
 
 - `POST /v1/imports` is multipart: `platform` (`reddit` | `x`) plus one or more files. Consent-gated. `Idempotency-Key` honoured like `/v1/runs`.
 - **The browser extracts only the files the adapter needs** before upload: `comments.csv` and `posts.csv` from a Reddit export, `data/tweets.js` from an X archive. A full X archive with media is often several gigabytes; this keeps it on the user's device and is plain data minimisation. The server accepts the extracted files, or a zip under the cap, and treats both as untrusted.
+- **X archives split their tweets:** large accounts have `data/tweets.js` plus `data/tweets-part1.js`, `tweets-part2.js`, …. The browser uploads each as a separate multipart file under its basename, and W2's adapter reads all parts in numeric order. **The adapters must accept these loose files, not only a zip** — today `XArchiveAdapter` takes zip bytes and reads the first `tweets.js` member only (found 2026-10-11).
 - **Cap:** 50 MB per upload (env-configurable), enforced while streaming, before buffering.
 - **Zip safety:** never extracted to disk; members read in memory by allow-listed name only; limits on member count and total uncompressed size (zip-bomb guard); no path handling at all.
 - The raw upload is stored as an encrypted staging object (D1), the worker parses → normalises → **drops third-party content before anything is persisted** → encrypts + embeds + stores, then deletes the staging object. Filenames are never logged or stored.
