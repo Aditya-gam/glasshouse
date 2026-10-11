@@ -1,6 +1,6 @@
 # API — Endpoints: Account
 
-> **Depends on:** `05-backend/modules/services-consent.md` + `services-export.md` + `services-erasure.md`, `11-roadmap/plans/write-paths.md` (D4, D5, D8) · **Rules:** `security-privacy` · **Version:** v2 (contract frozen in backend PR #59; revoke by path, synchronous erasure, export download route)
+> **Depends on:** `05-backend/modules/services-consent.md` + `services-export.md` + `services-erasure.md`, `11-roadmap/plans/write-paths.md` (D4, D5, D8) · **Rules:** `security-privacy` · **Version:** v2 (contract frozen in backend PRs #59 + #60; revoke by path, synchronous erasure, export download route)
 
 Data-subject rights + consent.
 
@@ -16,4 +16,4 @@ Data-subject rights + consent.
 
 Every consent/export/erase writes to `audit_log` through `write_audit_event`.
 
-**Status (2026-10-11):** the shapes above are published in `openapi.json`; the routes return 501 until W1 (consent, account read), W3 (erasure), W4 (retention) and W5 (export) land. `policy_version` on the grant and `current_policy_version` on the read are a contract amendment decided on 2026-10-11 and not yet in the published contract.
+**Status (2026-10-11):** the shapes above are published in `openapi.json`; the routes return 501 until W1 (consent, account read), W3 (erasure), W4 (retention) and W5 (export) land. `policy_version` on the grant, `current_policy_version` on the read and the `409` on a stale version were added by the contract amendment WC.1 (backend PR #60); the check itself is enforced from W1.

@@ -1,11 +1,11 @@
 # API — Endpoints: Imports
 
-> **Depends on:** `03-data/ingestion/*`, `11-roadmap/plans/write-paths.md` (D1, D2, D3) · **Version:** v2 (contract frozen in backend PR #59)
+> **Depends on:** `03-data/ingestion/*`, `11-roadmap/plans/write-paths.md` (D1, D2, D3) · **Version:** v2 (contract frozen in backend PRs #59 + #60)
 
 | Method | Path | Behavior |
 |---|---|---|
 | `POST` | `/v1/imports` | `multipart/form-data`: `platform` (`reddit` \| `x`) + `files[]` → creates an `import_source` and **`202` + `run_id`** (an `ingestion` run: parse → third-party-drop → encrypt/embed). Consent-gated. |
-| `GET` | `/v1/imports` | the caller's imports. |
+| `GET` | `/v1/imports` | `ImportPage {items: ImportRead[], next_cursor}` — the caller's imports, cursor-paginated like `/v1/runs`. |
 | `GET` | `/v1/imports/{id}` | `ImportRead {id, platform, status, run_id, kept_count, dropped_count, created_at}`. |
 
 - **What is uploaded:** the browser extracts only the files the adapter needs (`comments.csv` + `posts.csv` from a Reddit export; `data/tweets.js` from an X archive). The server also accepts a zip and treats all input as untrusted.
