@@ -45,7 +45,8 @@ D1, D3, D5 and D8 are the material ones; all four were approved as proposed on 2
 **Constraint.** Decrypt model A (`05-backend/modules/crypto.md`): the per-user DEK never leaves Postgres. So the app cannot derive a media key from the DEK in-process, which is what `03-data/encryption.md` loosely describes ("SSE with a key derived from the DEK").
 
 **Proposed design.**
-- A storage **port** (`put`, `get`, `delete`, `delete_prefix`) with one S3-compatible adapter. Local dev and CI use **MinIO** in compose; deploy uses Cloudflare R2. No R2 account is needed until M7.
+- A storage **port** (`put`, `get`, `delete`, `delete_prefix`) with one S3-compatible adapter. Local dev and CI use **SeaweedFS** in compose (pinned by version and digest); deploy uses Cloudflare R2. No R2 account is needed until M7.
+- *Correction 2026-10-12:* this plan first named MinIO, without checking its status. MinIO's community edition has been source-only since October 2025, its repository was archived in April 2026, and its images were removed from Docker Hub and closed on Quay in September 2026; neither registry can be pulled from. SeaweedFS (Apache-2.0, maintained, persistent, signed requests) is the replacement; VersityGW is the fallback if the adapter's conformance test finds a gap. The port hides the choice, and R2 itself is verified at M7.
 - Every object is encrypted **app-side** with **AES-256-GCM** under a random 256-bit **per-object key** (`cryptography`, already present through `pyjwt[crypto]`). The object key is wrapped **inside Postgres** with the existing `encrypt_field(user_id, key, master_key)` and stored as a T2 column next to the object reference.
 - Result: the store only ever holds ciphertext; the DEK still never leaves Postgres; deleting the user's DEK makes every wrapped object key, and so every object, unrecoverable. Crypto-shred covers objects by construction, even an object the erasure job failed to delete.
 - Object keys are namespaced `u/{user_id}/…` so erasure can delete by prefix.
@@ -55,7 +56,7 @@ D1, D3, D5 and D8 are the material ones; all four were approved as proposed on 2
 - *Server-side encryption with customer keys (SSE-C)* — the store handles plaintext in transit to encryption, which contradicts "the store never holds plaintext" (`09-infra-devops/infrastructure.md`).
 - *Parse and persist inside the request, no worker* — embedding is CPU-bound and belongs on the queue (`.claude/rules/backend.md`); no retry on failure.
 
-**Cost.** One new compose service (MinIO), one new client dependency (`aiobotocore`; `boto3` in a threadpool is the fallback), and a spec correction to three security docs (§8).
+**Cost.** One new compose service (SeaweedFS), one new client dependency (`aiobotocore`; `boto3` in a threadpool is the fallback), and a spec correction to three security docs (§8).
 
 ### D2 — Ingestion and export are runs
 
@@ -107,7 +108,7 @@ Each task is one PR. Gates for every task: `ruff` + `mypy --strict` clean, tests
 | ID | Task | Needs | Done when |
 |---|---|---|---|
 | **WC** | Contract first: final DTOs and route signatures for every changed route (still 501), republish `openapi.json` | — | Frontend can generate its client and build on mocks |
-| **W0** | Storage port + S3 adapter + encrypted-object envelope + MinIO in compose + settings | — | Round-trip works; store holds only ciphertext; tampered object fails authentication; after DEK deletion the object key cannot be unwrapped |
+| **W0** | Storage port + S3 adapter + encrypted-object envelope + SeaweedFS in compose + settings | — | Round-trip works; store holds only ciphertext; tampered object fails authentication; after DEK deletion the object key cannot be unwrapped |
 | **W1** | Consent grant / revoke, `GET /v1/account`, `write_audit_event` | WC | Grant then run succeeds; revoke then run is refused; every change writes an audit event; user A cannot see or change user B's consents |
 | **W2** | `POST /v1/imports` + `GET` list / status, `ingestion` run type, ingestion worker, kept/dropped counts | WC, W0, W1 | Uploading the fixture Reddit export and X archive ends in a `succeeded` run with correct counts; third-party content never reaches the database or the store; over-cap and zip-bomb uploads are refused; no upload without consent |
 | **W3** | Erasure service + `DELETE /v1/account`; webhook path reuses it | W0 | After erasure: owned rows gone, objects gone, a saved copy of the ciphertext cannot be decrypted, the audit row remains with `user_id` null; idempotent |
@@ -171,7 +172,7 @@ Each backend task updates the docs it invalidates in the same change (`00-tracea
 - **Schema (D2, D7, D8):** `03-data/database/tables/runs.md`, `import_sources.md`, `users.md`, `audit_log.md`, new `inference_feedback.md`; the ER diagram; `02-architecture/run-lifecycle.md` (run types).
 - **API (D3, D4, D5, D7):** `06-api/endpoints/account.md`, `imports.md`, `inferences.md`, `runs.md`.
 - **Services and workers:** `05-backend/modules/services-erasure.md` (synchronous; Clerk identity deleted by the frontend), `services-export.md`, `services-ingestion.md` (staging object), `workers.md` (ingestion, export, purge).
-- **Infra:** `02-architecture/deployment-topology.md` and `09-infra-devops/infrastructure.md` (MinIO in dev, R2 at deploy).
+- **Infra:** `02-architecture/deployment-topology.md` and `09-infra-devops/infrastructure.md` (SeaweedFS in dev, R2 at deploy).
 - **Frontend flows:** `onboarding-consent.md`, `connect-import.md` (in-browser extraction), `account-data-rights.md`.
 - **Roadmap:** task lines W* and F* added to `tasks-backend.md` and `tasks-frontend.md`; `milestones.md` and `build-order.md` gain this milestone before M4.
 
@@ -182,7 +183,8 @@ Each backend task updates the docs it invalidates in the same change (`00-tracea
 | Clerk self-deletion is off by default | F3 delete cannot remove the identity | Switch it on in the Clerk dashboard before F3; until then the backend erasure still works and the identity is left behind, which the UI must not hide |
 | Current AWS SDKs send checksums R2 has rejected | Uploads fail at deploy | Set checksum calculation to "when required" in the adapter; verify against R2 at M7, not here |
 | `aiobotocore` lags `boto3` | Dependency friction | Fallback is `boto3` behind a threadpool; the port hides the choice |
-| Low disk on the dev Mac (about 22 GB free) | MinIO image and volumes add pressure | MinIO is small (about 100 MB); upload cap keeps volumes small; prune only with the user's say-so |
+| Low disk on the dev Mac (about 22 GB free) | The object-store image and volumes add pressure | The image is small; the upload cap keeps volumes small; prune only with the user's say-so |
+| The local object store is not R2 | Behaviour differences surface late | The adapter's conformance test defines what we rely on (put, get, delete, list by prefix, signed requests, path-style addressing); the same test runs against R2 at M7 |
 | In-browser zip reading on very large archives | Slow or memory-heavy on old devices | Stream the zip index and read only the needed members; show progress; fall back to "upload the extracted file" instructions |
 | Process-then-discard touches several reads | Regressions in Attribution and Defend | Isolated as W7 + F4b, last, behind its own tests |
 | Consent text discloses "an AI model provider" but cannot name it yet | Incomplete transparency if deployed as is | Version `2026-10-12` carries the general disclosure and the 180-day retention; a new version naming the actual providers is required before M7's public deploy |

@@ -60,6 +60,7 @@ Free API tiers that may use prompts to improve the provider's products must not 
 
 ## 6. Other candidates noted, not adopted
 
+- **MinIO is gone as a local S3 server** (found 2026-10-12, when the backend could not pull it): community edition source-only since October 2025, repository archived April 2026, Docker Hub repositories deleted and Quay closed to anonymous pulls in September 2026. Confirmed from this machine: `minio/minio` and `quay.io/minio/minio` fail; SeaweedFS, VersityGW, Garage, RustFS, S3Mock and moto all resolve. Local dev uses SeaweedFS.
 - **arq is maintenance-only.** It still works and had a release in April 2026. `streaQ`, `SAQ` and `taskiq` are active. Not worth migrating mid-build.
 - **DoxBench** (500 GPS-labelled casual photos, ICLR 2026) is a closer match to personal photos than OSV-5M, but access is gated under a strict custom licence.
 - **`aioboto3` lags `boto3` by about a year**; current AWS SDKs send upload checksums that R2 has rejected, fixed by setting checksum calculation to "when required".
